@@ -1,0 +1,28 @@
+G:= SymmetricGroup(4); Gs:=sub<G|(1,2),(1,3)>;
+H:= SymmetricGroup(4); Hs:=sub<H|(1,2),(1,3)>;
+GcH:=DirectProduct(G,H);
+GcHs1:=DirectProduct(Gs, H);
+GcHs2:=DirectProduct(G, Hs);
+GcHs:=GcHs1 meet GcHs2;
+temp:=Subgroups(GcH);
+#GcH;
+L:=[];
+for s in temp do
+   Append(~L, s`subgroup);
+end for;
+for i:=260 to #L do
+    print #L[i];
+end for;
+flag:=0;
+for l in L do 
+   if (GcHs meet l eq GcHs) then
+       print l;flag:=flag +1;
+   end if;
+end for;
+flag;
+
+for i:= 1 to #temp do
+   l:=temp[i]`subgroup; Append(~L, l);
+   if IsIsomorphic(l, GcHs) then print i; end if;
+end for;
+
